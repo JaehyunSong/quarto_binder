@@ -1,0 +1,16 @@
+channels:
+  - conda-forge
+dependencies:
+  - r-base=4.5.2
+  - r-irkernel
+  - r-tidyverse
+  - r-haven
+  - r-remotes
+  - r-devtools
+  # R Markdown
+  - r-rmarkdown
+  - r-quarto
+  - r-summarytools
+  - r-modelsummary
+  - r-gt
+  - r-tinytex
