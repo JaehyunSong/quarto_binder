@@ -61,6 +61,6 @@ echo
 echo Completed
 echo
 
-quarto install tinytex
+# quarto install tinytex
 
-# rm apt.txt README.md environment.yml postBuild setup_cran.R setup_gh.R setup.R rdd_0.57.tar.gz
+rm apt.txt README.md environment.yml postBuild
