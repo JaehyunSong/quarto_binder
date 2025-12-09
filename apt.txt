@@ -3,7 +3,6 @@ fonts-noto-cjk-extra
 libharfbuzz-dev
 libfribidi-dev
 libudunits2-dev
-default-jre
 libfreetype6-dev
 libpng-dev
 libtiff5-dev
