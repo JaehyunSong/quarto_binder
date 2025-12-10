@@ -61,6 +61,8 @@ echo
 echo Completed
 echo
 
-# quarto install tinytex
+# RStudio設定の移植
+mkdir -p ~/.config/rstudio
+mv rstudio-prefs.json ~/.config/rstudio/rstudio-prefs.json
 
-rm apt.txt README.md environment.yml postBuild
+rm apt.txt README.md environment.yml postBuild rstudio-prefs.json
