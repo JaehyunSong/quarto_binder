@@ -65,4 +65,4 @@ echo
 mkdir -p ~/.config/rstudio
 mv rstudio-prefs.json ~/.config/rstudio/rstudio-prefs.json
 
-rm apt.txt README.md environment.yml postBuild rstudio-prefs.json
+rm apt.txt README.md environment.yml postBuild
