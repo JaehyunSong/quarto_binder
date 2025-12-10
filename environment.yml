@@ -12,7 +12,6 @@ dependencies:
   - r-summarytools
   - r-modelsummary
   - r-gt
-  - r-tinytex
   - r-ragg
   - r-mgcv
   - r-pacman
