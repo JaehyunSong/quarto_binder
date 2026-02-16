@@ -7,6 +7,7 @@ dependencies:
   - r-haven
   - r-remotes
   - r-devtools
+  - r-knitr
   - r-rmarkdown
   - r-quarto
   - r-summarytools
