@@ -17,6 +17,17 @@ format:
     footer: "Quarto実習（スライド作成編）"
     chalkboard: true
     code-line-numbers: true
+  beamer:
+    pdf-engine: lualatex
+    theme: metropolis                # 好きなテーマを使おう
+    classoption:
+      - aspectratio=169              # 縦横比4:3ならこの行を削除
+      - 10pt
+    mainfont: "Noto Sans CJK JP"     # フォントは自分のPC環境に合わせて修正
+    CJKmainfont: "Noto Sans CJK JP"  # フォントは自分のPC環境に合わせて修正
+    include-in-header: 
+      text: |
+        \usepackage{luatexja}
 ---
 
 # Quartoスライドの基本 {visibility="uncounted"}
@@ -67,9 +78,9 @@ format:
 ## 画像のスタック
 
 :::: {.r-stack}
-![](figs/markdown/rcat_3.png){.fragment}
+![](figs/rcat_3.png){.fragment}
 
-![](figs/markdown/rcat_1.png){.fragment}
+![](figs/rcat_1.png){.fragment}
 
 ![](figs/rcat.png){.fragment}
 ::::
