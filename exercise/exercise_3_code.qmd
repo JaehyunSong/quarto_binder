@@ -1,0 +1,214 @@
+---
+title: "Quarto de スライド"
+subtitle: "ここにはサブタイトル"
+author: 
+  - name: "佐藤華子"
+    email: sato@hanako.com
+  - name: "田中太郎"
+    email: tanaka@taro.com
+date: "2026/2/20"
+format:
+  revealjs:
+    width: 1200
+    height: 900
+    theme: simple
+    slide-number: true
+    #logo: https://csrda.iss.u-tokyo.ac.jp/img2020/logo.png
+    footer: "Quarto実習（スライド作成編）"
+    chalkboard: true
+    code-line-numbers: true
+---
+
+# Quartoスライドの基本 {visibility="uncounted"}
+
+## 改ページについて
+
+スライドの改ページはmarkdownのレベル2ヘッダー（`##`）を使う。
+
+ページ内の記法はこれまでと変わらない。
+
+## 箇条書き
+
+宋のおすすめのとんかつ屋さん（関西版）
+
+- ふじ井
+- 京町堀なかむら
+   - とんかつ中村
+- 日月
+- 勝山
+- U.F.O
+- とんかつ中村
+
+## アニメーション付き箇条書き
+
+全国とんかつランキング（食べログ）
+
+:::: {.incremental}
+1. 揚雫
+1. 成蔵
+1. マンジェ
+1. ふじ井
+::::
+
+## 図の位置
+
+![](figs/rcat.png){.absolute top=200 right=150}
+
+![](figs/rcat.png){.absolute top=400 left=50 width="50px"}
+
+![](figs/rcat.png){.absolute bottom=0 left=200 width="100px" height="300px"}
+
+# Quartoスライドの機能 {visibility="uncounted"}
+
+## このスライドは見せたくない {visibility="hidden"}
+
+- ふじ井のロイヤル・マンガリッツァのメンチカツは事前予約が必要
+
+## 画像のスタック
+
+:::: {.r-stack}
+![](figs/markdown/rcat_3.png){.fragment}
+
+![](figs/markdown/rcat_1.png){.fragment}
+
+![](figs/rcat.png){.fragment}
+::::
+
+## フラグメント
+
+::: {.fragment .fade-in}
+フェードイン（最初は非表示）
+:::
+
+::: {.fragment .fade-out}
+フェードアウト（最初は表示）
+:::
+
+::: {.fragment .highlight-red}
+赤色にハイライト（最初は表示）
+:::
+
+::: {.fragment .fade-in-then-out}
+フェードインからアウト（最初は非表示）
+:::
+
+::: {.fragment .fade-in-then-semi-out}
+フェードインからアウト（2）（最初は非表示）
+:::
+
+::: {.fragment .strike}
+取り消し線（最初は非表示）
+:::
+
+## 画像の自動サイズ調整
+
+![](figs/rcat.png){.r-image-stretch fig-align="center"}
+
+## {visibility="uncounted"}
+
+:::: {.r-fit-text style="position:absolute; top:40%;"}
+ご清聴ありがとうございました
+::::
+
+## コードハイライト（1）
+
+```{.r code-line-numbers="1|3-4|6-7"}
+library(ggplot2)
+
+# ここでデータを読み込みます
+data <- mtcars
+
+# ここでプロットします
+ggplot(data, aes(mpg, wt)) + geom_point()
+```
+
+## コードアニメーション {auto-animate="true" visibility="uncounted"}
+
+```{.r}
+library(ggplot2)
+```
+
+## コードアニメーション {auto-animate="true" visibility="uncounted"}
+
+```{.r}
+library(ggplot2)
+
+# ここでデータを読み込みます
+data <- mtcars
+```
+
+## コードアニメーション {auto-animate="true" visibility="uncounted"}
+
+```{.r}
+library(ggplot2)
+
+# ここでデータを読み込みます
+data <- mtcars
+
+# ここでプロットします
+ggplot(data, aes(mpg, wt)) + geom_point()
+```
+
+## スライドの背景（色）{background-color="cornsilk"}
+
+## スライドの背景（画像）{background-image="figs/rcat.png" background-size="250px" background-repeat="repeat" background-opacity="0.5"}
+
+## 画面の切替効果（1） {transition="fade"}
+
+`fade`の場合
+
+```{r}
+library(ggplot2)
+
+# ここでプロットします
+ggplot(mtcars, aes(mpg, wt)) + 
+  geom_point(aes(color = factor(cyl)), size = 5)
+```
+
+## 画面の切替効果（2） {transition="slide"}
+
+`slide`の場合
+
+```{r}
+library(ggplot2)
+
+# ここでプロットします
+ggplot(mtcars, aes(mpg, wt)) + 
+  geom_point(aes(color = factor(cyl)), size = 5)
+```
+
+## 画面の切替効果（3） {transition="convex"}
+
+`convex`の場合
+
+```{r}
+library(ggplot2)
+
+# ここでプロットします
+ggplot(mtcars, aes(mpg, wt)) + 
+  geom_point(aes(color = factor(cyl)), size = 5)
+```
+
+## 画面の切替効果（4） {transition="concave"}
+
+`concave`の場合
+
+```{r}
+library(ggplot2)
+
+# ここでプロットします
+ggplot(mtcars, aes(mpg, wt)) + 
+  geom_point(aes(color = factor(cyl)), size = 5)
+```
+
+## 画面の切替効果（5） {transition="zoom"}
+
+`zoom`の場合
+
+```{r}
+library(ggplot2)
+
+# ここでプロットします
+ggplot(mtcars, aes(mpg, wt)) + 
+  geom_point(aes(color = factor(cyl)), size = 5)
+```

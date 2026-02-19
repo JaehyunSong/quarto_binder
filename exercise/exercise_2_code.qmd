@@ -1,0 +1,227 @@
+---
+title: "Quartoを使った研究成果と分析プロセスの共有"
+subtitle: "4/ 文書の作成"
+date: "2026/2/20"
+date-modified: last-modified
+author:
+  - name: 田中太郎
+    affiliation: 慶應義塾大学
+    email: taro.tanaka@keiogijuku.ac.jp
+  - name: 佐藤花子
+    affiliation: 早稲田大学
+lang: ja
+abstract: |
+  このドキュメントは、「Quartoを使った研究成果と分析プロセスの共有」の第4回の実習用教材です。[第4回のスライド](https://www.jaysong.net/intro-to-quarto/04_document_slide.html)で紹介されている機能を網羅的に使用しています。
+format:
+  html:
+    theme: flatly
+    toc: true
+    toc-location: right
+    toc-depth: 3
+    number-sections: true
+    code-tools: true
+    code-annotations: hover
+  pdf:
+    pdf-engine: lualatex
+    documentclass: ltjsarticle
+    classoption: [a4paper, 10.5pt]
+    number-sections: true
+knitr:
+  opts_chunk: 
+    dev: ragg_png
+    dpi: 300
+    message: false
+    warning: false
+    fig-align: center
+bibliography: references.bib
+---
+
+```{scss}
+//| echo: false
+figcaption {
+  text-align: center;
+}
+a {
+  color: royalblue;
+  text-decoration: none;
+}
+```
+
+# 相互参照 {#sec-crossref}
+
+論文やレポートでは「図1に示すように...」といった記述が必須です。Quartoでは `@ラベル名` を使うことで、番号を自動管理できます。
+
+## 図の参照
+
+まずは単一の図を参照してみましょう。@fig-hist は、正規分布に従う乱数のヒストグラムです。
+
+```{r}
+#| label: fig-hist
+#| fig-cap: "正規乱数のヒストグラム"
+#| echo: false
+
+x <- rnorm(1000)
+hist(x, col="skyblue", main="")
+```
+
+次に、複数の図を並べて参照する場合です。@fig-charts 全体、あるいは個別の @fig-charts-1 や @fig-charts-2 を参照できます。
+
+```{r}
+#| label: fig-charts
+#| layout-ncol: 2
+#| fig-cap: "2種類のチャート"
+#| fig-subcap: 
+#|   - "散布図"
+#|   - "箱ひげ図"
+#| echo: false
+
+plot(cars, pch = 19, col = "tomato")
+boxplot(cars$speed, col = "lightgreen")
+```
+
+## 表の参照
+
+表の参照には tbl- 接頭辞を使います。@tbl-summary は`iris`データセットの要約です。
+
+```{r}
+#| label: tbl-summary
+#| tbl-cap: "irisデータの先頭5行"
+#| echo: false
+
+knitr::kable(head(iris, 5))
+```
+
+Markdownで記述した表も参照可能です（@tbl-manual）。
+
+|ID|名前|役割|
+|:---:|:---|:---|
+| 1 | 田中太郎 | 第一書記長 |
+| 2 | 佐藤花子 | 首席書記長 |
+
+: 誰が偉いか分からん {#tbl-manual}
+
+## 数式とセクションの参照
+
+数式にラベルを付けることもできます。ポアソン分布の確率質量関数 @eq-poisson は以下のように定義されます。
+
+$$
+P(X=k) = \frac{\lambda^k e^{-\lambda}}{k!}
+$$ {#eq-poisson}
+
+また、冒頭の @sec-crossref や、この @sec-pdf 自体を参照することも可能です。
+
+---
+
+# 複雑なレイアウト {#sec-layout}
+
+## タブセットパネル
+
+コードと結果を別々のタブに分けて表示すると、スペースを節約できます。
+
+::: {.panel-tabset}
+
+### Rコード
+
+作図に使用したコードはこちらです。
+
+```{r}
+#| eval: false
+library(ggplot2)
+mtcars |> 
+  ggplot(aes(x = wt, y = mpg, color = factor(cyl))) +
+  geom_point(size=3) +
+  theme_classic()
+```
+
+### 実行結果
+
+実際のプロットはこちらのタブで確認してください。
+
+```{r}
+#| echo: false
+library(ggplot2)
+mtcars |> 
+  ggplot(aes(x = wt, y = mpg, color = factor(cyl))) +
+  geom_point(size=3) +
+  theme_classic()
+```
+
+:::
+
+## 段組み
+
+テキストと図表を左右に並べることで、雑誌のようなレイアウトが可能です。
+
+:::: {.columns}
+
+::: {.column width="40%"}
+**解説**
+
+　左側の段（column; カラム）には文章を配置します。右側のグラフは、データセットの相関行列を可視化したものです。このように、解説を見ながら図を確認できる配置は、プレゼンテーションやポスターで特に有効です。
+:::
+
+::: {.column width="60%"}
+```{r}
+#| echo: false
+#| fig-height: 5
+pairs(iris[1:4], col = iris$Species, pch = 19)
+```
+:::
+
+::::
+
+---
+
+# コードへの注釈
+
+コードの特定行に説明を加えたい場合、行末にコメントで番号を振り、リストで説明を記述できます。
+
+```{r}
+#| code-annotations: hover
+
+library(dplyr) # <1> 
+iris |> 
+  filter(Species == "setosa") |> # <2>
+  summarise(mean_len = mean(Sepal.Length)) # <3>
+```
+
+1. データ操作のために{dplyr}パッケージを読み込みます。
+2. `Species`が`"setosa"である行だけを抽出します。
+3. ガクの長さ（`Sepal.Length`）の平均値を計算します。
+
+---
+
+# コールアウトブロック
+
+読者の注意を引くための特別なブロックを作成できます。
+
+::: {.callout-note}
+## ノート
+これは補足情報です。
+:::
+
+::: {.callout-warning}
+## 警告
+これは注意喚起です。データの取り扱いに注意してください。
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## ヒント（クリックして展開）
+
+`collapse="true"`を指定すると、デフォルトで折りたたまれた状態になります。`icon="false"`でアイコンを消すこともできます。
+:::
+
+---
+
+# 参考文献の引用 {#sec-bib}
+
+外部の文献ファイル（`.bib`）がある場合、以下のように引用できます。
+
+- 文芸的プログラミングの概念は @knuth_1984 によって提唱され...
+- `lang:ja`にすると [@imai_williams_2022] のようになっちゃうのがちょっと嫌ですね。。
+
+---
+
+# PDF出力 {#sec-pdf}
+
+YAMLヘッダーをいじるとPDFフォーマットに出力することもできます。ただし、HTML文書と見た目が同じとは限りません。細かい調整のためにはTeXの知識が不可欠です。
